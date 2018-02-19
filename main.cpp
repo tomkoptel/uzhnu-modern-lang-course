@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <sstream>
 
 using namespace std;
 
@@ -8,15 +9,7 @@ int gcd(int a, int b) {
     return gcd(b, a % b);
 }
 
-int maxGcd() {
-    vector<int> array;
-    char c;
-    int number;
-    do {
-        scanf("%d", &number);
-        array.push_back(number);
-    } while (scanf("%c", &c), c != '\n');
-
+int maxGcd(vector<int> array) {
     int maxVal = 0;
     if (!array.empty()) {
         for (int i = 0; i < array.size(); ++i) {
@@ -38,9 +31,9 @@ int maxGcd() {
  *
  * Input:
  * 3
- * 10 20 30 40
- * 7 5 12
- * 125 15 25
+10 20 30 40
+7 5 12
+125 15 25
  *
  * Output:
  * 20 1 25
@@ -53,8 +46,18 @@ int main() {
     cin.get();
 
     auto *results = new int[tries];
-    for (int i = 0; i < tries; ++i) {
-        results[i] = maxGcd();
+    string tmp;
+
+    for (int j = 0; j < tries; ++j) {
+        getline(cin, tmp);
+        vector<int> nums;
+        stringstream ss(tmp);
+
+        int num;
+        while(ss >> num) {
+            nums.push_back(num);
+        }
+        results[j] = maxGcd(nums);
     }
 
     for (int i = 0; i < tries; ++i) {
